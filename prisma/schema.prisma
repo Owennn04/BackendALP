@@ -4,10 +4,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// datasource db {
-//   provider = "sqlite"  // Ganti ke "postgresql" atau "mysql" jika perlu
-//   url      = env("DATABASE_URL")
-// }
+datasource db {
+  provider = "sqlite"  // Ganti ke "postgresql" atau "mysql" jika perlu
+  url      = env("DATABASE_URL")
+}
 
 // Model User
 model User {
