@@ -22,17 +22,14 @@ model User {
   alarms    Alarm[]
 }
 
-// Model Alarm
 model Alarm {
-  id        String   @id @default(uuid())
-  time      String   // Format "HH:mm" contoh: "07:30"
-  label     String   // Nama alarm, contoh: "Bangun Pagi"
-  days      String   // JSON string: "[true,false,true,...]"
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id       Int     @id @default(autoincrement())
+  time     String  // Format: "HH:mm" (contoh: "07:30")
+  label    String  // Label alarm (contoh: "Bangun Pagi")
+  days     Json    // Array boolean untuk hari [Minggu, Senin, ..., Sabtu]
+  isActive Boolean @default(true)
+  userId   Int
+  user     User    @relation(fields: [userId], references: [id])
 
-  // Foreign Key ke User
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("alarms")
 }
