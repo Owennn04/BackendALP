@@ -7,10 +7,10 @@ import { ResponseError } from "../error/response-error";
 export class AlarmService{
 
     // Create alarm baru
-    static async create(user: User, request: any){
+    static async create(user: User, request: any){ 
         const req = Validation.validate(AlarmValidation.CREATE, request);
 
-        return await prismaClient.alarm.cretae({
+        return await prismaClient.alarm.create({
             data: {
                 time: req.time,
                 label: req.label?? "Alarm",
@@ -54,7 +54,7 @@ export class AlarmService{
 
         if(!alarm) throw new ResponseError(404, "Alarm not found");
 
-        return await prismaClient.alarm.Delete({
+        return await prismaClient.alarm.delete({
             where: { id: alarmId }
         });
     }
