@@ -21,6 +21,14 @@ export class AlarmService{
         })
     }
 
+    // List semua alarm milik user
+     static async list(user: User) {
+        return await prismaClient.alarm.findMany({
+            where: { userId: user.id },
+            orderBy: { id: 'asc' }
+        });
+    }
+
     // Update status aktif alarm
     static async toggle(user: User, request: any){
         const req = Validation.validate(AlarmValidation.UPDATE, request);

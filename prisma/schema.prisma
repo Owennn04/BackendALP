@@ -11,15 +11,14 @@ datasource db {
 
 // Model User
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  password     String
+  username     String
+  token        String?       // Token login (UUID/JWT)
+  alarms       Alarm[]
 
-  // Relasi ke Alarm
-  alarms    Alarm[]
+  @@map("users")
 }
 
 model Alarm {
