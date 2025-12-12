@@ -5,7 +5,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"  // Ganti ke "postgresql" atau "mysql" jika perlu
+  provider = "postgresql"  // Ganti ke "postgresql" atau "mysql" jika perlu
   url      = env("DATABASE_URL")
 }
 
@@ -17,7 +17,7 @@ model User {
   username     String
   token        String?       // Token login (UUID/JWT)
   alarms       Alarm[]
-
+  transactions Transaction[]
   @@map("users")
 }
 
@@ -31,4 +31,16 @@ model Alarm {
   user     User    @relation(fields: [userId], references: [id])
 
   @@map("alarms")
+}
+
+model Transaction {
+  id        Int      @id @default(autoincrement())
+  type      String   // INCOME / EXPENSE
+  amount    Float
+  category  String
+  date      DateTime
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("transactions")
 }
