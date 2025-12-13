@@ -12,7 +12,7 @@ export type CreateTransactionRequest = {
     type: "INCOME" | "EXPENSE";
     amount: number;
     category: string;
-    date: string; // ISO String dari Client
+    date: string;
 }
 
 export function toTransactionResponse(transaction: Transaction): TransactionResponse {

@@ -1,6 +1,7 @@
 import express from "express";
 import { authMiddleware } from "../middlewares/auth-middleware";
 import { AlarmController } from "../controllers/alarm-controller";
+import { FinanceController } from "../controllers/finance-controller";
 
 export const apiRouter = express.Router();
 
@@ -11,3 +12,7 @@ apiRouter.post('/api/alarms', AlarmController.create);
 apiRouter.get('/api/alarms', AlarmController.list);
 apiRouter.patch('/api/alarms/:id/toggle', AlarmController.toggle); // Body: { isActive: boolean }
 apiRouter.delete('/api/alarms/:id', AlarmController.remove);
+
+// Finance Routes
+apiRouter.post('/api/finance', FinanceController.create);
+apiRouter.get('/api/finance', FinanceController.list);
