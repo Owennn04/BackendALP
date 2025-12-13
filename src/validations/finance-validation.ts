@@ -5,6 +5,6 @@ export class FinanceValidation {
         type: z.enum(["INCOME", "EXPENSE"]),
         amount: z.number().positive(),
         category: z.string().min(1).max(100),
-        date: z.string().datetime() // Expects ISO String format
+        date: z.string().datetime() 
     });
 }
