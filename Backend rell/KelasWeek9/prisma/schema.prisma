@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  password     String
+  username     String
+  token        String? // Token login (UUID/JWT)
+  transactions Transaction[]
+  todos        Todo[]
+  alarms       Alarm[]
+  events       Event[]
+
+  @@map("users")
+}
+
+model Event {
+  id        Int    @id @default(autoincrement())
+  date      String
+  eventName String
+  startTime String
+  endTime   String
+  
+  userId    Int
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Transaction {
+  id       Int      @id @default(autoincrement())
+  type     String // INCOME / EXPENSE
+  amount   Float
+  category String
+  date     DateTime
+  userId   Int
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@map("transactions")
+}
+
+model Todo {
+  id          Int     @id @default(autoincrement())
+  title       String
+  time        String // Format: "YYYY-MM-DD HH:mm"
+  isReminder  Boolean @default(true)
+  isCompleted Boolean @default(false)
+  userId      Int
+  user        User    @relation(fields: [userId], references: [id])
+
+  @@map("todos")
+}
+
+model Alarm {
+  id       Int     @id @default(autoincrement())
+  time     String // Format: "HH:mm"
+  label    String
+  days     Json // Menyimpan array boolean [true, false, ...]
+  isActive Boolean @default(true)
+  userId   Int
+  user     User    @relation(fields: [userId], references: [id])
+
+  @@map("alarms")
+}
