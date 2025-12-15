@@ -1,11 +1,15 @@
 import express from "express";
 import { authMiddleware } from "../middlewares/auth-middleware";
 import { AlarmController } from "../controllers/alarm-controller";
+import { AuthController } from "../controllers/auth-controller";
 import { FinanceController } from "../controllers/finance-controller";
 
 export const apiRouter = express.Router();
 
 apiRouter.use(authMiddleware);
+
+// Auth Logout
+apiRouter.delete('/api/users/logout', AuthController.logout);
 
 // Alarm Routes
 apiRouter.post('/api/alarms', AlarmController.create);
@@ -16,6 +20,3 @@ apiRouter.delete('/api/alarms/:id', AlarmController.remove);
 // Finance Routes
 apiRouter.post('/api/finance', FinanceController.create);
 apiRouter.get('/api/finance', FinanceController.list);
-
-// Auth Logout
-apiRouter.delete('/api/users/logout', AuthController.logout);

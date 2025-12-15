@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { publicRouter } from "./routes/public-api";
 import { apiRouter } from "./routes/api";
 import { errorMiddleware } from "./middlewares/error-middleware";
 
@@ -14,6 +15,7 @@ app.use(cors()); // Agar Android Emulator (10.0.2.2) bisa akses
 app.use(express.json());
 
 // Setup Routes
+app.use(publicRouter);
 app.use(apiRouter);
 
 // Error Middleware (Harus paling bawah)
