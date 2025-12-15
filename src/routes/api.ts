@@ -16,3 +16,6 @@ apiRouter.delete('/api/alarms/:id', AlarmController.remove);
 // Finance Routes
 apiRouter.post('/api/finance', FinanceController.create);
 apiRouter.get('/api/finance', FinanceController.list);
+
+// Auth Logout
+apiRouter.delete('/api/users/logout', AuthController.logout);
