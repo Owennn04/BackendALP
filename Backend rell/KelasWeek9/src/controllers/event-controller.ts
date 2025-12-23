@@ -4,7 +4,7 @@ import { ResponseError } from "../error/response-error"
 import { CreateUpdateEventRequest } from "../models/event-model"
 import { EventService } from "../services/event-service"
 
-export class TodoController {
+export class EventController {
     static async getAllEvents(
         req: UserRequest,
         res: Response,
@@ -23,9 +23,9 @@ export class TodoController {
 
     static async getEvent(req: UserRequest, res: Response, next: NextFunction) {
         try {
-            const todoListId = Number(req.params.todoListId)
+            const eventId = Number(req.params.event_id)
 
-            const response = await EventService.getEvent(req.user!, todoListId)
+            const response = await EventService.getEvent(req.user!, eventId)
 
             res.status(200).json({
                 data: response,
@@ -53,19 +53,19 @@ export class TodoController {
         }
     }
 
-    static async updateTodo(
+    static async updateEvent(
         req: UserRequest,
         res: Response,
         next: NextFunction
     ) {
         try {
             const reqData = req.body as CreateUpdateEventRequest
-            const todoListId = Number(req.params.todoListId)
+            const eventId = Number(req.params.event_id)
 
             const response = await EventService.update(
                 req.user!,
                 reqData,
-                todoListId
+                eventId
             )
 
             res.status(200).json({
@@ -76,15 +76,15 @@ export class TodoController {
         }
     }
 
-    static async deleteTodo(
+    static async deleteEvent(
         req: UserRequest,
         res: Response,
         next: NextFunction
     ) {
         try {
-            const todoListId = Number(req.params.todoListId)
+            const eventId = Number(req.params.event_id)
 
-            const response = await EventService.delete(req.user!, todoListId)
+            const response = await EventService.delete(req.user!, eventId)
 
             res.status(200).json({
                 data: response,

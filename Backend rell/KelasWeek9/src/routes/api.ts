@@ -4,6 +4,7 @@ import { AuthController } from "../controllers/auth-controller";
 import { FinanceController } from "../controllers/finance-controller";
 import { TodoController } from "../controllers/todo-controller";
 import { AlarmController } from "../controllers/alarm-controller";
+import { EventController } from "../controllers/event-controller";
 
 export const apiRouter = express.Router();
 
@@ -27,3 +28,10 @@ apiRouter.post('/api/alarms', AlarmController.create);
 apiRouter.get('/api/alarms', AlarmController.list);
 apiRouter.patch('/api/alarms/:id/toggle', AlarmController.toggle); // Body: { isActive: boolean }
 apiRouter.delete('/api/alarms/:id', AlarmController.remove);
+
+// Event Routes
+apiRouter.get("/api/event", EventController.getAllEvents)
+apiRouter.get("/api/event/:event_id", EventController.getEvent)
+apiRouter.post("/api/event", EventController.createEvent)
+apiRouter.put("/api/event/:event_id", EventController.updateEvent)
+apiRouter.delete("/api/event/:event_id", EventController.deleteEvent)

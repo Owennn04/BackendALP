@@ -13,7 +13,7 @@ export type CreateUpdateEventRequest = {
     date: string
     eventName: string
     startTime: string
-    endTime: String
+    endTime: string
 }
 
 export function EventResponse(event: Event): EventResponse {

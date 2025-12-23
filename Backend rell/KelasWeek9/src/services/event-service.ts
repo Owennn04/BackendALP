@@ -70,14 +70,14 @@ export class EventService {
     static async delete(user: User, eventId: number) {
         await this.checkEventIsEmpty(user.id, eventId)
 
-        await prismaClient.todo.delete({
+        await prismaClient.event.delete({
             where: {
                 userId: user.id,
                 id: eventId,
             },
         })
 
-        return "Todo data has been deleted successfully!"
+        return "Event data has been deleted successfully!"
     }
 
     static async getAllEvents(user: User): Promise<EventResponse[]> {
