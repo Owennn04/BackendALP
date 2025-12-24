@@ -48,12 +48,17 @@ export class EventService {
             EventValidation.CREATE_UPDATE,
             req
         )
+        const event = await prismaClient.event.findUnique({
+            where: { id: eventId },
+        })
 
-        await this.checkEventIsEmpty(eventId, user.id)
+        if (!event || event.userId !== user.id) {
+            throw new ResponseError(404, "Event not found")
+        }
+
 
         await prismaClient.event.update({
             where: {
-                userId: user.id,
                 id: eventId,
             },
             data: {
